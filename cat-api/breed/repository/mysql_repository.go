@@ -57,6 +57,10 @@ func (r *repo) GetBreedByName(breedName string) (*models.Breed, error) {
 	err = row.Scan(&att)
 
 	if err != nil {
+		if err != sql.ErrNoRows {
+			return &models.Breed{}, nil
+		}
+
 		return nil, err
 	}
 
