@@ -4,5 +4,5 @@ import "github.com/gin-gonic/gin"
 
 //AssignRoute register the routes needed to get the breeds
 func (h *handler) AssignRoute(r *gin.Engine) {
-	r.GET("/login", h.Login)
+	r.POST("/login", h.Login)
 }
