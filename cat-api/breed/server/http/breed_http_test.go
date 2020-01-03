@@ -145,24 +145,19 @@ func TestGetBreedByNameInternalError (t *testing.T){
 }
 
 func makeTestToken(secret []byte) string {
-	// Declare the expiration time of the token
-	// here, we have kept it as 5 minutes
-	expirationTime := time.Now().Add(5 * time.Minute)
-	// Create the JWT claims, which includes the username and expiry time
+	expirationTime := time.Now().Add(30 * time.Second)
+
 	claims := &struct{
 		Username string `json:"username"`
 		jwt.StandardClaims
 	}{
 		Username: "John Doe",
 		StandardClaims: jwt.StandardClaims{
-			// In JWT, the expiry time is expressed as unix milliseconds
 			ExpiresAt: expirationTime.Unix(),
 		},
 	}
 
-	// Declare the token with the algorithm used for signing, and the claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// Create the JWT string
 	tokenString, err := token.SignedString(secret)
 	if err != nil {
 		return ""
