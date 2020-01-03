@@ -42,7 +42,7 @@ func (r *repo) FindUserByCredentials(login models.UserLogin) (bool, error) {
 		return false, err
 	}
 
-	stmt, err := r.db.Prepare("SELECT COUNT(*) FROM cats.users WHERE username = ? AND pass = ?")
+	stmt, err := r.db.Prepare("SELECT COUNT(*) FROM cats.users WHERE username = ? AND pass = SHA1(?)")
 
 	if err != nil {
 		return false, err
