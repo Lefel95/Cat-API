@@ -34,10 +34,10 @@ func (m *MockService) EXPECT() *MockServiceMockRecorder {
 }
 
 // GetBreedByName mocks base method
-func (m *MockService) GetBreedByName(breedName string) (models.Breed, error) {
+func (m *MockService) GetBreedByName(breedName string) (*models.Breed, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetBreedByName", breedName)
-	ret0, _ := ret[0].(models.Breed)
+	ret0, _ := ret[0].(*models.Breed)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
