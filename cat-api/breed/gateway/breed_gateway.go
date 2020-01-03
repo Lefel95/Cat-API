@@ -31,12 +31,12 @@ func (api *catAPI) GetBreedByName(breedName string) (*models.Breed, error) {
 	}
 
 	for _, breed := range breeds {
-		if breed.Name == breedName {
+		if breed.ID == breedName {
 			return &breed, nil
 		}
 	}
 
-	return nil, fmt.Errorf("Could not find breed: %s", breedName)
+	return nil, fmt.Errorf("could not find breed: %s", breedName)
 }
 
 func (api *catAPI) getBreeds() ([]models.Breed, error) {
