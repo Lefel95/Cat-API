@@ -32,7 +32,7 @@ func (h *handler) GetBreedByName(c *gin.Context) {
 	theBreed, err := h.service.GetBreedByName(breedName)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 

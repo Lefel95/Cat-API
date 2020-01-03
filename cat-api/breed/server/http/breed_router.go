@@ -8,8 +8,8 @@ import (
 
 //AssignRoute register the routes needed to get the breeds
 func (h *handler) AssignRoute(r *gin.Engine, secret []byte) {
-	r.Use(h.AuthMiddleware(secret))
-	r.GET("/breeds", h.GetBreedByName)
+	breeds := r.GET("/breeds", h.GetBreedByName)
+	breeds.Use(h.AuthMiddleware(secret))
 }
 
 //AuthMiddleware is a middleware to identify if the user is logged
