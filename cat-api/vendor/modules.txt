@@ -36,6 +36,8 @@ github.com/modern-go/reflect2
 github.com/pmezard/go-difflib/difflib
 # github.com/stretchr/testify v1.4.0
 github.com/stretchr/testify/assert
+# github.com/tinrab/retry v1.0.0
+github.com/tinrab/retry
 # github.com/ugorji/go/codec v1.1.7
 github.com/ugorji/go/codec
 # golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a
