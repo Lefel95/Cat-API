@@ -5,6 +5,8 @@ import (
 	"cat-api/models"
 	"database/sql"
 	"encoding/json"
+	"fmt"
+
 	//mysql is a package to use mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -57,7 +59,7 @@ func (r *repo) GetBreedByName(breedName string) (*models.Breed, error) {
 	err = row.Scan(&att)
 
 	if err != nil {
-		if err != sql.ErrNoRows {
+		if err == sql.ErrNoRows {
 			return &models.Breed{}, nil
 		}
 
@@ -71,4 +73,38 @@ func (r *repo) GetBreedByName(breedName string) (*models.Breed, error) {
 	}
 
 	return &breed, nil
+}
+
+func (r *repo) InsertBreed(breed *models.Breed) error {
+	err := r.ping()
+
+	if err != nil {
+		return err
+	}
+
+	stmt, err := r.db.Prepare("INSERT INTO cats.breeds (id, attributes) VALUES(?, ?)")
+
+	if err != nil {
+		return err
+	}
+
+	breedJson, err := json.Marshal(&breed)
+
+	if err != nil {
+		return err
+	}
+
+	res, err := stmt.Exec(breed.ID, breedJson)
+
+	if err != nil {
+		return err
+	}
+
+	rows, _ := res.RowsAffected()
+
+	if rows <= 0 {
+		return fmt.Errorf("failed to insert breed to database")
+	}
+
+	return nil
 }
