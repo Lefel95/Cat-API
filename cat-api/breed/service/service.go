@@ -28,6 +28,12 @@ func (s *service) GetBreedByName(breedName string) (*models.Breed, error) {
 		if err != nil {
 			return nil, err
 		}
+
+		err := s.repo.InsertBreed(breed)
+
+		if err != nil {
+			return breed, err
+		}
 	}
 
 	return breed, nil
